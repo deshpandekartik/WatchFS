@@ -23,3 +23,13 @@ statistics, charts and notifications about their filesystem.
 * Request queueing - for fault tolerance when the remote server is down.
 * Real-time issuing of alert when malicious activity or malicious file is detected.
 * Coded in Python. ( Yay! ) also had to use html/js/css for front end ( :( )
+
+### Basic Working
+![Basic Working](Capture.JPG)
+
+---
+
+### Screenshots
+![Screenshot 1](Screenshot-1.png)
+![Screenshot 2](Screenshot-2.png)
+

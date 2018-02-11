@@ -208,7 +208,7 @@ class Passthrough(Operations):
     def chmod(self, path, mode):
         full_path = self._full_path(path)
 
-        print("Chmod function called")
+        # print("Chmod function called")
         create_and_run_thread(send_chmod_request, (path, mode))
 
         return os.chmod(full_path, mode)
@@ -216,7 +216,7 @@ class Passthrough(Operations):
     def chown(self, path, uid, gid):
         full_path = self._full_path(path)
 
-        print("Chown function called")
+        # print("Chown function called")
         create_and_run_thread(send_chown_request, (path, uid, gid))
 
         return os.chown(full_path, uid, gid)
@@ -250,13 +250,13 @@ class Passthrough(Operations):
     def rmdir(self, path):
         full_path = self._full_path(path)
 
-        print("Rmdir function called")
+        # print("Rmdir function called")
         create_and_run_thread(send_rmdir_request, (path,))
 
         return os.rmdir(full_path)
 
     def mkdir(self, path, mode):
-        print("Mkdir function called")
+        # print("Mkdir function called")
         create_and_run_thread(send_mkdir_request, (path, mode))
 
         return os.mkdir(self._full_path(path), mode)
@@ -269,7 +269,7 @@ class Passthrough(Operations):
             'f_frsize', 'f_namemax'))
 
     def unlink(self, path):
-        print("Unlink called")
+        # print("Unlink called")
         create_and_run_thread(send_unlink_request, (path,))
 
         return os.unlink(self._full_path(path))
@@ -279,7 +279,7 @@ class Passthrough(Operations):
 
     def rename(self, old, new):
 
-        print("Rename called")
+        # print("Rename called")
         create_and_run_thread(send_rename_request, (old, new))
 
         return os.rename(self._full_path(old), self._full_path(new))
@@ -302,7 +302,7 @@ class Passthrough(Operations):
 
         to_return = os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
 
-        print("Create function called")
+        # print("Create function called")
         uid = os.stat(full_path).st_uid
         gid = os.stat(full_path).st_gid
         create_and_run_thread(send_create_request, (path, mode, uid, gid))
@@ -315,7 +315,7 @@ class Passthrough(Operations):
 
     def write(self, path, buf, offset, fh):
 
-        print("Write function called")
+        # print("Write function called")
         size = len(buf)
         create_and_run_thread(send_write_request, (path, size))
         os.lseek(fh, offset, os.SEEK_SET)
@@ -324,7 +324,7 @@ class Passthrough(Operations):
     def truncate(self, path, length, fh=None):
         full_path = self._full_path(path)
 
-        print("Truncate function called")
+        # print("Truncate function called")
         size = length
         create_and_run_thread(send_truncate_request, (path, size))
 
