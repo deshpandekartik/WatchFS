@@ -4,7 +4,7 @@ Real-time Remotely Monitored File System.
 ---
 
 WatchFS is a file system developed in FUSE (Filesystem in User Space). It records the activity happening on the File System
-in real-time and sends it to a remote server via REST API. The server collects the data displays the statistics to the user
+in real-time and sends it to a remote server via REST API. The server collects the data and displays the statistics to the user
 via a dashboard.
 
 ---
@@ -22,10 +22,16 @@ statistics, charts and notifications about their filesystem.
 * Multi-threaded and fault-tolerant client, so the REST API calls don't slow down/block the file system calls.
 * Request queueing - for fault tolerance when the remote server is down.
 * Real-time issuing of alert when malicious activity or malicious file is detected.
-* Coded in Python. ( Yay! ) also had to use html/js/css for front end ( :( )
+* Coded in Python and Flask framework. ( Yay! ) also had to use html/js/css for front end ( :( )
 
 ### Basic Working
 ![Basic Working](Capture.JPG)
+
+---
+
+### Potential uses
+
+Such a system can potentially be used to store sensitive stuff, such as classified documents. In such situations, it is essential that we monitor all the file system activity and notify the admin about any potetial security breaches or anomalous behavior in real-time.
 
 ---
 
@@ -33,3 +39,10 @@ statistics, charts and notifications about their filesystem.
 ![Screenshot 1](Screenshot-1.png)
 ![Screenshot 2](Screenshot-2.png)
 
+---
+
+### Authors
+Vipul Chaskar
+Kartik Deshpande
+Sujoy Das
+Nikhil Raverkar
