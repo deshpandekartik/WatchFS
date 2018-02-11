@@ -132,6 +132,16 @@ def send_rmdir_request(path):
     send_request(full_url, request_body)
 
 
+def send_unlink_request(path):
+    full_url = url + "unlink"
+
+    data = create_request_json()
+    data["path"] = str(path)
+
+    request_body = json.dumps(data)
+    send_request(full_url, request_body)
+
+
 class Passthrough(Operations):
     def __init__(self, root):
         self.root = root
@@ -199,7 +209,7 @@ class Passthrough(Operations):
         full_path = self._full_path(path)
 
         print("Rmdir function called")
-        create_and_run_thread(send_rmdir_request, (path))
+        create_and_run_thread(send_rmdir_request, (path,))
 
         return os.rmdir(full_path)
 
@@ -217,6 +227,9 @@ class Passthrough(Operations):
             'f_frsize', 'f_namemax'))
 
     def unlink(self, path):
+        print("Unlink called")
+        create_and_run_thread(send_unlink_request, (path,))
+
         return os.unlink(self._full_path(path))
 
     def symlink(self, name, target):
