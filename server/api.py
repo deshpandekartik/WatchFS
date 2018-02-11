@@ -7,6 +7,7 @@ from sqlite_database import *
 from flask import render_template
 import datetime
 from hurry.filesize import size
+import os
 
 response_success_status = "0"	# 0 - returns on success
 response_failure_status = "1" 	# 1 - return on failure
@@ -14,7 +15,7 @@ response_failure_status = "1" 	# 1 - return on failure
 
 # Database, key value store to store data
 DATAMAP = {}		# Main database, maintains read write operation data , mapped to PCName
-BLACKLISTEDFILES = ['bat','batch'] 	# list of mallicious files
+BLACKLISTEDFILES = ['bat','batch','virus.sh','malicious.so','danger.o'] 	# list of mallicious files
 
 # database object
 sqlite = sqlite_database()
@@ -34,7 +35,7 @@ def index(name=None):
 		notifications.append(row)
 	print notifications
 	
-	query = "select * from extensioncount"
+	query = "select * from extensioncount where cast(count as real) > 0"
         cur = sqlite.conn.cursor()
         cur.execute(query)
         rows = cur.fetchall()
@@ -125,7 +126,7 @@ def api_create():
                 return Response(response_failure_status, status=502, mimetype='application/json')
 
 
-	if path in BLACKLISTEDFILES:
+	if os.path.basename(path) in BLACKLISTEDFILES:
 		textualdata = "Anomaly detected ! A Blacklisted file named " + path + " was created"
 		string = "insert into notification (nodeid, textualdata, timestamp) values('" + str(NodeID) + "','" + str(textualdata) + "','" + str(datetime.datetime.fromtimestamp(timestamp)) + "')"
                 sqlite.execute_query(string)	
