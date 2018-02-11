@@ -9,13 +9,13 @@
   <meta name="author" content="">
   <title>WatchFS</title>
   <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="static/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="static/css/sb-admin.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -171,33 +171,17 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="alertsDropdown">
             <h6 class="dropdown-header">New Alerts:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
+            {% for notification in notifications %}	
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">
               <span class="text-danger">
                 <strong>
-                  <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+                  {{ notification[0] }}</strong>
               </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+              <span class="small float-right text-muted">{{ notification[2] }} </span>
+              <div class="dropdown-message small">{{ notification[1] }}</div>
             </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
+	     {% endfor %}
             <div class="dropdown-divider"></div>
             <a class="dropdown-item small" href="#">View all alerts</a>
           </div>
@@ -300,18 +284,18 @@
       <!-- Area Chart Example-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-area-chart"></i> Area Chart Example</div>
+         <i class="fa fa-area-chart"></i> File size Distribution</div>
         <div class="card-body">
           <canvas id="myAreaChart" width="100%" height="30"></canvas>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <div class="card-footer small text-muted" >Updated yesterday at 11:59 PM</div>
       </div>
       <div class="row">
         <div class="col-lg-8">
           <!-- Example Bar Chart Card-->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-bar-chart"></i> Bar Chart Example</div>
+             <i class="fa fa-bar-chart"></i> Extension statistics</div>
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-8 my-auto">
@@ -347,49 +331,19 @@
           <!-- Example Notifications Card-->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-bell-o"></i> Feed Example</div>
+              <i class="fa fa-bell-o"></i> Notifications</div>
             <div class="list-group list-group-flush small">
+		{% for notification in notifications %}
               <a class="list-group-item list-group-item-action" href="#">
                 <div class="media">
                   <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
                   <div class="media-body">
-                    <strong>David Miller</strong>posted a new article to
-                    <strong>David Miller Website</strong>.
-                    <div class="text-muted smaller">Today at 5:43 PM - 5m ago</div>
+                    <strong>{{ notification[0] }}</strong> {{ notification[1] }}
+                    <div class="text-muted smaller">{{ notification[2] }}</div>
                   </div>
                 </div>
               </a>
-              <a class="list-group-item list-group-item-action" href="#">
-                <div class="media">
-                  <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
-                  <div class="media-body">
-                    <strong>Samantha King</strong>sent you a new message!
-                    <div class="text-muted smaller">Today at 4:37 PM - 1hr ago</div>
-                  </div>
-                </div>
-              </a>
-              <a class="list-group-item list-group-item-action" href="#">
-                <div class="media">
-                  <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
-                  <div class="media-body">
-                    <strong>Jeffery Wellings</strong>added a new photo to the album
-                    <strong>Beach</strong>.
-                    <div class="text-muted smaller">Today at 4:31 PM - 1hr ago</div>
-                  </div>
-                </div>
-              </a>
-              <a class="list-group-item list-group-item-action" href="#">
-                <div class="media">
-                  <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
-                  <div class="media-body">
-                    <i class="fa fa-code-fork"></i>
-                    <strong>Monica Dennis</strong>forked the
-                    <strong>startbootstrap-sb-admin</strong>repository on
-                    <strong>GitHub</strong>.
-                    <div class="text-muted smaller">Today at 3:54 PM - 2hrs ago</div>
-                  </div>
-                </div>
-              </a>
+		{% endfor %}
               <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -919,19 +873,19 @@
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="static/vendor/chart.js/Chart.min.js"></script>
+    <script src="static/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="static/vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+    <script src="static/js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <!---<script src="js/sb-admin-charts.js"></script>-->
+    <script src="static/js/sb-admin-datatables.min.js"></script>
+    <!---<script src="static/js/sb-admin-charts.js"></script>-->
     <script>
     // Chart.js scripts
 // -- Set new default font family and font color to mimic Bootstrap's default styling
@@ -942,9 +896,9 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+    labels: ["< 1mb", "1-5mb", "5-20mb", "20-50mb", "50-100mb", "100-500mb", "500mb-1gb", "1-5gb", ">5gb"],
     datasets: [{
-      label: "Sessions",
+      label: "Total files",
       lineTension: 0.3,
       backgroundColor: "rgba(2,117,216,0.2)",
       borderColor: "rgba(2,117,216,1)",
@@ -955,7 +909,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "rgba(2,117,216,1)",
       pointHitRadius: 20,
       pointBorderWidth: 2,
-      data: [10000, 30162, 30000, 18394, 18287, 28682, 10274, 33259, 25849, 24159, 32651, 31984, 38451],
+      data: [ {{ filesizes.lessthan1mb }} , {{ filesizes.a1to5mb }} , {{ filesizes.a5to20mb }} , {{ filesizes.a20to50mb }} , {{ filesizes.a50to100mb }} , {{ filesizes.a100to500mb }}, {{ filesizes.a500mbto1gb }} , {{ filesizes.a1to5gb }} , {{ filesizes.gt5gb }} ],
     }],
   },
   options: {
@@ -974,7 +928,7 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 40000,
+          max: 25,
           maxTicksLimit: 5
         },
         gridLines: {
@@ -992,12 +946,12 @@ var ctx = document.getElementById("myBarChart");
 var myLineChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: [ {% for extension in extensioncount %} "{{ extension[1] }}", {% endfor %} ],
     datasets: [{
       label: "Revenue",
       backgroundColor: "rgba(2,117,216,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [6000, 5312, 6251, 7841, 9821, 14984],
+      data: [{% for extension in extensioncount %} {{ extension[2] }} , {% endfor %} ],
     }],
   },
   options: {
@@ -1016,7 +970,7 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
+          max: 50,
           maxTicksLimit: 5
         },
         gridLines: {

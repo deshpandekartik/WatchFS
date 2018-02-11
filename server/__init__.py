@@ -43,37 +43,7 @@ def index(name=None):
                 extensioncount.append(row)
         print extensioncount
 
-	filesizes = {}
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) < 1000000 ")
-        filesizes["lessthan1mb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 1000000 and cast(size as real) < 5000000 ")
-        filesizes["a1to5mb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 5000000 and cast(size as real) < 20000000 ")
-        filesizes["a5to20mb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 20000000 and cast(size as real) < 50000000 ")
-        filesizes["a20to50mb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 50000000 and cast(size as real) < 100000000 ")
-        filesizes["a50to100mb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 100000000 and cast(size as real) < 500000000 ")
-        filesizes["a100to500mb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 5000000000 and cast(size as real) < 1000000000 ")
-        filesizes["a500mbto1gb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 1000000000 and cast(size as real) < 5000000000 ")
-        filesizes["a1to5gb"] = len(lite)
-
-	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 5000000000 ")
-        filesizes["gt5gb"] = len(lite)
-
-
-    	return render_template('index.html', notifications=notifications, extensioncount=extensioncount,filesizes=filesizes)
+    	return render_template('index.html', notifications=notifications, extensioncount=extensioncount)
 
 @app.route('/API/initialize', methods=['GET', 'POST'])
 def api_initialize():
@@ -317,4 +287,4 @@ def json_create():
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')

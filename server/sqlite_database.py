@@ -12,7 +12,7 @@ class sqlite_database:
 
 		self.conn.execute('''CREATE TABLE if not exists extensioncount (nodeid text, extension text,  count text)''')
 
-		self.conn.execute('''CREATE TABLE if not exists notification (nodeid text, textualdata text)''')
+		self.conn.execute('''CREATE TABLE if not exists notification (nodeid text, textualdata text, timestamp text)''')
 
 		# commit the database
 		self.commit_database()
