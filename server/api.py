@@ -6,6 +6,7 @@ app = Flask(__name__)
 from sqlite_database import *
 from flask import render_template
 import datetime
+from hurry.filesize import size
 
 response_success_status = "0"	# 0 - returns on success
 response_failure_status = "1" 	# 1 - return on failure
@@ -72,8 +73,18 @@ def index(name=None):
 	lite = sqlite.get_row_count("select * from datamap where cast(size as real) > 5000000000 ")
         filesizes["gt5gb"] = len(lite)
 
+	query = "select nodeid,path,mode,uid,gid,size,timestamp from datamap"
+        cur = sqlite.conn.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
 
-    	return render_template('index.html', notifications=notifications, extensioncount=extensioncount,filesizes=filesizes)
+        datamap = []
+        for row in rows:
+		timestamp = str(datetime.datetime.fromtimestamp(int(row[-1])))
+		newtuple = (row[0],row[1],row[2],row[3],row[4],size(int(row[5])),timestamp)
+                datamap.append(newtuple)
+
+    	return render_template('index.html', notifications=notifications, extensioncount=extensioncount,filesizes=filesizes,datamap=datamap)
 
 @app.route('/API/initialize', methods=['GET', 'POST'])
 def api_initialize():
