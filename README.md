@@ -12,7 +12,7 @@ via a dashboard.
 ### Detailed description
 WatchFS File System is mounted at any given path (mount point) on the user's machine. It then starts intercepting all the
 filesystem calls happening over this mount point. Information from these filesystem calls (creating, deleting, writing a file,
-etc.) is updated to a remove server via REST API. The filesystem call is then transparently sent to the underlying filesystem.
+etc.) is updated to a remote server via REST API. The filesystem call is then transparently sent to the underlying filesystem.
 The remote server stores the aggregated information in a database. It provides a dashboard to the user where they can see the
 statistics, charts and notifications about their filesystem.
 
