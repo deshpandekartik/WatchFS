@@ -19,6 +19,7 @@ statistics, charts and notifications about their filesystem.
 ### Features
 * Completely transparent to the end user.
 * Real-time remotely monitored.
-* Multi-threaded client, so the REST API calls don't slow down the file system calls.
+* Multi-threaded and fault-tolerant client, so the REST API calls don't slow down/block the file system calls.
 * Request queueing - for fault tolerance when the remote server is down.
 * Real-time issuing of alert when malicious activity or malicious file is detected.
+* Coded in Python. ( Yay! ) also had to use html/js/css for front end ( :( )
