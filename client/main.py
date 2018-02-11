@@ -8,10 +8,51 @@ import errno
 import requests
 import json
 import threading
+import time
 from fuse import FUSE, FuseOSError, Operations
 
-url = 'http://149.125.122.83:5000/API/'
+url = 'http://149.125.226.187:5000/API/'
 NODEID = 'Vipuls-Macbook'
+
+
+class LockedQueue:
+
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.queue = []
+
+
+def add_to_queue(full_url, headers, body):
+
+    locked_queue.lock.acquire()
+    locked_queue.queue.append([full_url, headers, body])
+    locked_queue.lock.release()
+
+
+def sender_thread():
+
+    print("Starting sender thread...")
+
+    while True:
+        if len(locked_queue.queue) != 0:
+            locked_queue.lock.acquire()
+
+            arecord = locked_queue.queue.pop(0)
+
+            try:
+                print("Sending request to " + str(arecord[0]) + " with body: " + str(arecord[2]))
+                response = requests.post(arecord[0], data=arecord[2], headers=arecord[1], timeout=10)
+                assert response.ok
+                print("Sent.")
+
+            except Exception as e:
+                print(e)
+                print("Couldn't send it. Adding back...")
+                locked_queue.queue.insert(0, arecord)
+
+            locked_queue.lock.release()
+        else:
+            time.sleep(1)
 
 
 def create_and_run_thread(target, arguments):
@@ -23,9 +64,10 @@ def create_and_run_thread(target, arguments):
 def send_request(full_url, body):
     headers = {'content-type': 'application/json'}
 
-    print("Sending request to " + str(full_url) + " with body: " + str(body))
-    response = requests.post(full_url, data=body, headers=headers)
-    assert response.ok
+    add_to_queue(full_url, headers, body)
+    # print("Sending request to " + str(full_url) + " with body: " + str(body))
+    # response = requests.post(full_url, data=body, headers=headers)
+    # assert response.ok
 
 
 def create_request_json():
@@ -307,4 +349,11 @@ def main(mountpoint, root):
 
 
 if __name__ == '__main__':
+    global locked_queue
+    locked_queue = LockedQueue()
+
+    t = threading.Thread(target=sender_thread)
+    t.daemon = True
+    t.start()
+
     main(sys.argv[2], sys.argv[1])
