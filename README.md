@@ -9,6 +9,9 @@ via a dashboard.
 
 ---
 
+### Disclaimer
+This project was built in [HackBU](http://hackbu.org/) 2018 ( Hackathon at Binghamton university ) , in a span of 24 hours. and had won the first place as a best security hack project.
+
 ### Detailed description
 WatchFS File System is mounted at any given path (mount point) on the user's machine. It then starts intercepting all the
 filesystem calls happening over this mount point. Information from these filesystem calls (creating, deleting, writing a file,
@@ -42,7 +45,7 @@ Such a system can potentially be used to store sensitive stuff, such as classifi
 ---
 
 ### Authors
-Vipul Chaskar
-Kartik Deshpande
-Sujoy Das
-Nikhil Raverkar
+- [Kartik Deshpande](https://www.linkedin.com/in/kartik-deshpande/)
+- [Vipul Chaskar](https://www.linkedin.com/in/vipul-chaskar-50808757/)
+- [Sujoy Das](https://www.linkedin.com/in/sujoydas27/)
+- [Nikhil Raverkar](https://www.linkedin.com/in/raverkar-nikhil/)
