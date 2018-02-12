@@ -10,7 +10,7 @@ via a dashboard.
 ---
 
 ### Disclaimer
-This project was built in [HackBU](https://devpost.com/software/watchfs) 2018 ( Hackathon at Binghamton university ) , in a span of 24 hours. and had won the first place as a best security hack project.
+This project was built in [HackBU 2018](https://devpost.com/software/watchfs) ( Hackathon at Binghamton university ) , in a span of 24 hours. and had won the first place as a best security hack project.
 
 ### Detailed description
 WatchFS File System is mounted at any given path (mount point) on the user's machine. It then starts intercepting all the
