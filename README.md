@@ -49,3 +49,8 @@ Such a system can potentially be used to store sensitive stuff, such as classifi
 - [Vipul Chaskar](https://www.linkedin.com/in/vipul-chaskar-50808757/)
 - [Sujoy Das](https://www.linkedin.com/in/sujoydas27/)
 - [Nikhil Raverkar](https://www.linkedin.com/in/raverkar-nikhil/)
+
+---
+
+### References:
+* https://www.stavros.io/posts/python-fuse-filesystem/
